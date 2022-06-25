@@ -1,0 +1,28 @@
+body{
+    font-size: 0px;
+}
+
+#main{
+    background-image: url("img/space.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: red;
+    width: 1000px;
+}
+
+#mainTable{
+    box-sizing: null;
+    table-layout: fixed;
+    margin: 0 auto;
+    width: 1000px;
+    height: 1000px;
+    border: solid black;
+    border-spacing: 0px;
+    max-height: 100px;
+}
+
+.col{
+float:left;
+height: 1px;
+width: 1px;
+}
