@@ -14,8 +14,21 @@ function fillSquare(context, x, y){
     context.fillRect(x,y,1,1);
 }
 
+
 canvas.addEventListener('click', function(evt) {
     var mousePos = getSquare(canvas, evt);
     console.log(mousePos);
     fillSquare(context, mousePos.x, mousePos.y)
 }, false);
+
+
+//We'll get takenSquares from a database of squares already taken
+takenSquares = [[1,1],[5,5]]
+
+function findTakenSquares(){
+    for (const element of takenSquares){
+        fillSquare(context, element[0], element[1]);
+    }
+}
+
+findTakenSquares();
