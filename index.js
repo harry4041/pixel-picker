@@ -1,7 +1,7 @@
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
-//We'll get takenSquares from a database of squares already taken
+//We'll get takenSquares from a database of squares already used
 takenSquares = ["1,2", "5,6"];
 
 function getSquare(canvas, evt) {
@@ -89,6 +89,7 @@ canvas.addEventListener('click', function (evt) {
 	}
 	console.log(evt.pageY);
 
+	//Need a way of removing highlighted square if another is clicked
 	fillSquare(context, mousePos.x, mousePos.y, "grey")
 }, false);
 
