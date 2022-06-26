@@ -1,16 +1,47 @@
 var cssRoot = document.querySelector(':root');
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
-
-//We'll get takenSquares from a database of squares already used
-takenSquares = ["1,2","1,1","2,1","2,2","3,1","5,6"];
-
-
-function changeCSSVal(name, change){
+var myVar;
+//Use JS to change CSS variables
+function changeCSSVal(name, change) {
 	cssRoot.style.setProperty(name, change);
 }
 
+//This function is used in index.html to get the json data from python
+var takenSquares = []
+var takenSquaresJson = []
+var takenSquaresStrings = []
+function getSquareList(data) {
+	for (var i = 0; i < data.length; i++) {
+		xValue = data[i]["x"];
+		yValue = data[i]["y"];
+		takenSquares.push([xValue, yValue])
+	}
 
+	//Creates the same list but with strings for the "click" function
+	for (const element of takenSquares) {
+		takenSquaresStrings.push(element.toString());
+	}
+}
+
+//Json values so you can use the userId later on
+function getSquareListJson(data) {
+	for (var i = 0; i < data.length; i++) {
+		takenSquaresJson.push(data[i])
+	}
+}
+
+//Then fill in the taken squares
+function findTakenSquares() {
+	for (const element of takenSquares) {
+		var x = element[0];
+		var y = element[1];
+		context.fillStyle = "grey";
+		context.fillRect(x, y, 1, 1);
+	}
+}
+
+//Get the nearest square to the mouse pointer
 function getSquare(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
 	return {
@@ -19,22 +50,19 @@ function getSquare(canvas, evt) {
 	};
 }
 
-
+//Fill the clicked square and remove the last square made
 var lastClickedPosX = 0;
 var lastClickedPosY = 0;
 var lastClickData;
-
-
 function fillSquare(context, x, y, color) {
 	//Refill last clicked square
-	if(lastClickData != null) {
-	context.putImageData(lastClickData, lastClickedPosX, lastClickedPosY);
-	console.log(lastClickData.data[0], lastClickData.data[1], lastClickData.data[2]);
+	if (lastClickData != null) {
+		context.putImageData(lastClickData, lastClickedPosX, lastClickedPosY);
 	}
-	
+
 	//Get data to refill this square if we click again
 	lastClickData = context.getImageData(x, y, 1, 1);
-	
+
 	//Fill new square
 	context.fillStyle = color;
 	context.fillRect(x, y, 1, 1);
@@ -44,18 +72,15 @@ function fillSquare(context, x, y, color) {
 	lastClickedPosY = y;
 }
 
-
-function findTakenSquares() {
-	for (const element of takenSquares) {
-		var x = element.substr(0, element.indexOf(','));
-		var y = element.split(",")[1];
-		context.fillStyle = "grey";
-		context.fillRect(x, y, 1, 1);
+//Match the clicked co-ords with the user that owns those co-ords
+function getUserId(data, xAxis, yAxis) {
+	for (var i = 0; i < data.length; i++) {
+		return data[i]["id"];
 	}
 }
 
-
-function showTaken(e, isTaken, pixel) {
+//Create the popup after clicking on a square
+function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 	const dest = document.getElementById("popup-element");
 
 	//Check if the element already exists
@@ -63,21 +88,20 @@ function showTaken(e, isTaken, pixel) {
 		dest.remove();
 	}
 
+
 	//Check if someone has already taken this pixel
 	if (isTaken) {
-		var text = "Sorry, " + pixel + " has already been claimed by: USER";
+		var text = "Sorry, " + pixel + " has already been claimed by: " + getUserId(takenSquaresJson, xAxis, yAxis);
 		//Change to taken users profile image
-		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)"); 
+		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)");
 	} else {
 		var text = "Would you like to claim pixel " + pixel + "?";
 		//Change to taken logged in users profile picture or something like a ? maybe
 		changeCSSVal("--popupImg", "linear-gradient(to right, white, white)");
 	}
 
-	//Handles where to put the popup so it's not off the scrren...
 	var leftOffset = e.pageX - 165;
 	var topOffset = e.pageY - 40;
-
 
 	//Create paragraph
 	var para = document.createElement('p');
@@ -93,23 +117,21 @@ function showTaken(e, isTaken, pixel) {
 	textDiv.appendChild(para);
 	document.getElementsByTagName('body')[0].appendChild(textDiv);
 
+	//TODO:
 	//Add fade effect
 }
 
-
+//Click
 canvas.addEventListener('click', function (evt) {
 	var mousePos = getSquare(canvas, evt);
 	var mousePosString = mousePos.x.toString() + "," + mousePos.y.toString();
 
-	if (takenSquares.includes(mousePosString)) {
-		showTaken(evt, true, mousePosString);
+	if (takenSquaresStrings.includes(mousePosString)) {
+		showTaken(evt, true, mousePosString, mousePos.x, mousePos.y);
 	} else {
-		showTaken(evt, false, mousePosString);
+		showTaken(evt, false, mousePosString, mousePos.x, mousePos.y);
 	}
 
 	//Need a way of removing highlighted square if another is clicked
 	fillSquare(context, mousePos.x, mousePos.y, "grey");
 }, false);
-
-//Is there a JS equivelent to c# Awake?
-findTakenSquares();
