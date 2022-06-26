@@ -2,13 +2,14 @@ var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
 //We'll get takenSquares from a database of squares already used
-takenSquares = ["1,2", "5,6"];
+takenSquares = ["1,2","1,1","2,1","2,2","3,1","5,6"];
+
 
 function getSquare(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
 	return {
-		x: 1 + (evt.clientX - rect.left) - (evt.clientX - rect.left) % 1,
-		y: 1 + (evt.clientY - rect.top) - (evt.clientY - rect.top) % 1
+		x: (evt.clientX - rect.left) - (evt.clientX - rect.left) % 1,
+		y: (evt.clientY - rect.top) - (evt.clientY - rect.top) % 1
 	};
 }
 
