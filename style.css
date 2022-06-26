@@ -14,7 +14,7 @@ body{
 
 p {
     text-align: center;
-    line-height: 25px;
+    line-height: 30px;
     color: white;
 }
 
@@ -23,21 +23,37 @@ p {
   height: 30px;
   width: 300px;
   border-radius: 6px;  
-  background: black;  
+  background: black;
   text-align: right;
   vertical-align: middle;
   }
 
-  #popup-element:before{
+#popup-element:before{
   position: absolute;
   content: "";
-  width: 50px;
-  height: 50px;
-  top: -11px;  
+  width: 54px;
+  height: 53px;
+  top: -13px;  
   left: -25px;
-  background-color: rgb(68, 35, 110);
+  background-image: linear-gradient(to right, rgb(125, 69, 209), black);
   border-radius: 50%;
 }
 
+#popup-element:after{
+  position: absolute;
+  content: "";
+  width: 45px;
+  height: 45px;
+  top: -9px;  
+  left: -21px;
+  background: white; /* Change to user who has this square otherwise a "?" */
+  border-radius: 50%;
+}
 
+#popup-picture{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: white; 
+}
 
