@@ -1,8 +1,14 @@
+var cssRoot = document.querySelector(':root');
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
 //We'll get takenSquares from a database of squares already used
 takenSquares = ["1,2","1,1","2,1","2,2","3,1","5,6"];
+
+
+function changeCSSVal(name, change){
+	cssRoot.style.setProperty(name, change);
+}
 
 
 function getSquare(canvas, evt) {
@@ -18,6 +24,7 @@ function fillSquare(context, x, y, color) {
 	context.fillStyle = color;
 	context.fillRect(x, y, 1, 1);
 }
+
 
 function findTakenSquares() {
 	for (const element of takenSquares) {
@@ -41,8 +48,12 @@ function showTaken(e, isTaken, pixel) {
 	//Check if someone has already taken this pixel
 	if (isTaken) {
 		var text = "Sorry, " + pixel + " has already been claimed by: USER";
+		//Change to taken users profile image
+		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)"); 
 	} else {
 		var text = "Would you like to claim pixel " + pixel + "?";
+		//Change to taken logged in users profile picture or something like a ? maybe
+		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)");
 	}
 
 	//Handles where to put the popup so it's not off the scrren...
@@ -91,7 +102,7 @@ canvas.addEventListener('click', function (evt) {
 	console.log(evt.pageY);
 
 	//Need a way of removing highlighted square if another is clicked
-	fillSquare(context, mousePos.x, mousePos.y, "grey")
+	fillSquare(context, mousePos.x, mousePos.y, "grey");
 }, false);
 
 //Is there a JS equivelent to c# Awake?
