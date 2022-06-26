@@ -20,9 +20,28 @@ function getSquare(canvas, evt) {
 }
 
 
+var lastClickedPosX = 0;
+var lastClickedPosY = 0;
+var lastClickData;
+
+
 function fillSquare(context, x, y, color) {
+	//Refill last clicked square
+	if(lastClickData != null) {
+	context.putImageData(lastClickData, lastClickedPosX, lastClickedPosY);
+	console.log(lastClickData.data[0], lastClickData.data[1], lastClickData.data[2]);
+	}
+	
+	//Get data to refill this square if we click again
+	lastClickData = context.getImageData(x, y, 1, 1);
+	
+	//Fill new square
 	context.fillStyle = color;
 	context.fillRect(x, y, 1, 1);
+
+	//Change to new values
+	lastClickedPosX = x;
+	lastClickedPosY = y;
 }
 
 
@@ -30,8 +49,6 @@ function findTakenSquares() {
 	for (const element of takenSquares) {
 		var x = element.substr(0, element.indexOf(','));
 		var y = element.split(",")[1];
-		console.log(x);
-		console.log(y);
 		fillSquare(context, x, y, "grey");
 	}
 }
@@ -53,7 +70,7 @@ function showTaken(e, isTaken, pixel) {
 	} else {
 		var text = "Would you like to claim pixel " + pixel + "?";
 		//Change to taken logged in users profile picture or something like a ? maybe
-		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)");
+		changeCSSVal("--popupImg", "linear-gradient(to right, white, white)");
 	}
 
 	//Handles where to put the popup so it's not off the scrren...
@@ -92,14 +109,12 @@ function showTaken(e, isTaken, pixel) {
 canvas.addEventListener('click', function (evt) {
 	var mousePos = getSquare(canvas, evt);
 	var mousePosString = mousePos.x.toString() + "," + mousePos.y.toString();
-	console.log(mousePosString);
 
 	if (takenSquares.includes(mousePosString)) {
 		showTaken(evt, true, mousePosString);
 	} else {
 		showTaken(evt, false, mousePosString);
 	}
-	console.log(evt.pageY);
 
 	//Need a way of removing highlighted square if another is clicked
 	fillSquare(context, mousePos.x, mousePos.y, "grey");
