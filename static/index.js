@@ -75,7 +75,10 @@ function fillSquare(context, x, y, color) {
 //Match the clicked co-ords with the user that owns those co-ords
 function getUserId(data, xAxis, yAxis) {
 	for (var i = 0; i < data.length; i++) {
-		return data[i]["id"];
+	    if(data[i]["x"] == xAxis && data[i]["y"] == yAxis){
+	        console.log(data[i]["id"]);
+		    return data[i]["id"];
+	    }
 	}
 }
 
@@ -125,7 +128,7 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 canvas.addEventListener('click', function (evt) {
 	var mousePos = getSquare(canvas, evt);
 	var mousePosString = mousePos.x.toString() + "," + mousePos.y.toString();
-
+    console.log(mousePos);
 	if (takenSquaresStrings.includes(mousePosString)) {
 		showTaken(evt, true, mousePosString, mousePos.x, mousePos.y);
 	} else {

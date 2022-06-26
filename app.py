@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    data = [{"id": 0, "x": 1, "y": 1,},  # id will be replaced with the username of the person who took the square
+    data = [{"id": "Steve", "x": 1, "y": 1,},  # id will be replaced with the username of the person who took the square
     {"id": "John", "x": 1, "y": 2},
     {"id": "Jacob", "x": 2, "y": 1},
     {"id": "Jingle", "x": 2, "y": 2},
