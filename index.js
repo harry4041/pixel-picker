@@ -66,13 +66,13 @@ function showTaken(e, isTaken, pixel) {
 	para.insertAdjacentText("beforeend", text);
 
 	//Create div that houses paragraph
-	var div = document.createElement('div');
-	div.id = "popup-element";
-	div.style.position = "absolute";
-	div.style.left = leftOffset + "px";
-	div.style.top = topOffset + "px";
-	div.appendChild(para);
-	document.getElementsByTagName('body')[0].appendChild(div);
+	var textDiv = document.createElement('div');
+	textDiv.id = "popup-element";
+	textDiv.style.position = "absolute";
+	textDiv.style.left = leftOffset + "px";
+	textDiv.style.top = topOffset + "px";
+	textDiv.appendChild(para);
+	document.getElementsByTagName('body')[0].appendChild(textDiv);
 
 	//Add fade effect
 }
