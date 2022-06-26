@@ -49,7 +49,8 @@ function findTakenSquares() {
 	for (const element of takenSquares) {
 		var x = element.substr(0, element.indexOf(','));
 		var y = element.split(",")[1];
-		fillSquare(context, x, y, "grey");
+		context.fillStyle = "grey";
+		context.fillRect(x, y, 1, 1);
 	}
 }
 
@@ -74,21 +75,8 @@ function showTaken(e, isTaken, pixel) {
 	}
 
 	//Handles where to put the popup so it's not off the scrren...
-	if(e.pageX > 870){
-		var leftOffset = e.pageX - 300;
-	} else if (e.pageX < 190){
-		var leftOffset = e.pageX - 15;
-		var topOffset = e.pageY - 45;
-	} else {
-		var leftOffset = e.pageX - 165;
-	}
-
-	//...continued for Y
-		if (e.pageY < 45){
-			var topOffset = e.pageY +15;
-		} else{
-			var topOffset = e.pageY - 40;
-		}
+	var leftOffset = e.pageX - 165;
+	var topOffset = e.pageY - 40;
 
 
 	//Create paragraph
