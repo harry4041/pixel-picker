@@ -78,15 +78,18 @@ function showTaken(e, isTaken, pixel) {
 		var leftOffset = e.pageX - 300;
 	} else if (e.pageX < 190){
 		var leftOffset = e.pageX - 15;
+		var topOffset = e.pageY - 45;
 	} else {
 		var leftOffset = e.pageX - 165;
 	}
+
 	//...continued for Y
-	if (e.pageY < 45){
-		var topOffset = e.pageY + 15;
-	} else{
-		var topOffset = e.pageY - 32;
-	}
+		if (e.pageY < 45){
+			var topOffset = e.pageY +15;
+		} else{
+			var topOffset = e.pageY - 40;
+		}
+
 
 	//Create paragraph
 	var para = document.createElement('p');
