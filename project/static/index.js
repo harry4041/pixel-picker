@@ -76,8 +76,8 @@ function fillSquare(context, x, y, color) {
 function getUserId(data, xAxis, yAxis) {
 	for (var i = 0; i < data.length; i++) {
 	    if(data[i]["x"] == xAxis && data[i]["y"] == yAxis){
-	        console.log(data[i]["id"]);
-		    return data[i]["id"];
+	        console.log(data[i]["name"]);
+		    return data[i]["name"];
 	    }
 	}
 }

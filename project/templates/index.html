@@ -50,6 +50,8 @@
 <script type="text/javascript" src="{{ url_for('static',filename='index.js') }}"> </script>
 <script type="text/javascript">
             jsonSquares = {{data|tojson}};
+            console.log(jsonSquares);
+            console.log("here");
             squaresList = getSquareList(jsonSquares);
             squareListJson = getSquareListJson(jsonSquares);
             findTakenSquares();
