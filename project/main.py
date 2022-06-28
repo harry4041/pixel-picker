@@ -7,18 +7,21 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    data = [{"id": "Steve", "x": 1, "y": 1,},  # id will be replaced with the username of the person who took the square
-    {"id": "John", "x": 1, "y": 2},
-    {"id": "Jacob", "x": 2, "y": 1},
-    {"id": "Jingle", "x": 2, "y": 2},
-    {"id": "Heimer", "x": 3, "y": 1},
-    {"id": "Schmidt", "x": 3, "y": 2}]
+    # If user is logged in then true
+    if current_user.is_authenticated:
+        logged = "true"
+    else:
+        logged = "false"
+
+    # Get all the users from db, then pass that data to JS where it will be converted to JSON
     user_list = []
     users = User.query.all()
     for user in users:
         user_list.append({c.name: getattr(user, c.name) for c in user.__table__.columns})
     data = user_list
-    return render_template('index.html', data=data)
+
+    # Show the main page
+    return render_template('index.html', data=data, logged=logged)
 
 @main.route('/profile')
 @login_required
