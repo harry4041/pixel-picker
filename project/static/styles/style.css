@@ -17,18 +17,19 @@ body{
     vertical-align: baseline;
 }
 
+.title-container{
+    display: flex; /* or inline-flex */
+    text-align: center;
+}
+
+
 h1{
   font-size:74px;
   text-align: center;
-  width: 50%;
   margin: 0 auto;
+  padding: 10px;
 }
 
-p {
-    text-align: center;
-    line-height: 30px;
-    color: white;
-}
 
 #popup-element {
  position: relative;

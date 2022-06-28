@@ -8,18 +8,27 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Advent Pro' rel='stylesheet'>
-
 </head>
 
 <body>
-    <h1 id="title">Pixel perfect</h1>
-    {% if current_user.is_authenticated %}
-    <h6>{{current_user.name}} is logged in</h6>
-    {% endif %}
+    <div class="title-container">
+        <div style="background-color:white; flex-grow: 1;">
+            {% if current_user.is_authenticated %}
+            <h6>{{current_user.name}} is logged in</h6>
+            {% endif %}
+        </div>
+        <div style="background-color:lavender; flex-grow: 2;">
+            <h1 id="title">Pixel perfect</h1>
+        </div>
+        <div style="background-color:white; flex-grow: 1;">
+            <p>Login</p>
+        </div>
+    </div>
+
+
     <div id="main">
         <canvas id="myCanvas" width="1001px" height="1001px"></canvas>
     </div>
-
 
 <script type="text/javascript" src="{{ url_for('static',filename='index.js') }}"> </script>
 <script type="text/javascript">
