@@ -101,14 +101,23 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 		var text = "Would you like to claim pixel " + pixel + "?";
 		//Change to taken logged in users profile picture or something like a ? maybe
 		changeCSSVal("--popupImg", "linear-gradient(to right, white, white)");
+
+		var but = document.createElement("button");
+		but.id = "popup-element-b";
+		but.insertAdjacentText("beforeend", "Claim");
 	}
 
-	var leftOffset = e.pageX - 165;
-	var topOffset = e.pageY - 40;
+    if (xAxis < 250){
+        var leftOffset = e.pageX - 100;
+    } else{
+        var leftOffset = e.pageX - 400;
+    }
+
+	var topOffset = e.pageY - 57;
 
 	//Create paragraph
 	var para = document.createElement('p');
-	para.style.margin = "0";
+	para.id = "popup-element-p";
 	para.insertAdjacentText("beforeend", text);
 
 	//Create div that houses paragraph
@@ -118,6 +127,7 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 	textDiv.style.left = leftOffset + "px";
 	textDiv.style.top = topOffset + "px";
 	textDiv.appendChild(para);
+	if(!isTaken) textDiv.appendChild(but);
 	document.getElementsByTagName('body')[0].appendChild(textDiv);
 
 	//TODO:
