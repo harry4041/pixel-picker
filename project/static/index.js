@@ -7,6 +7,7 @@ function changeCSSVal(name, change) {
 	cssRoot.style.setProperty(name, change);
 }
 
+
 //This function is used in index.html to get the json data from python
 var takenSquares = []
 var takenSquaresJson = []
@@ -82,10 +83,17 @@ function getUserId(data, xAxis, yAxis) {
 	}
 }
 
+function buySquare(){
+    console.log(userName);
+    //TODO:
+    //Delete the div
+    //Add square to person
+    //pass value back to sql
+}
+
 //Create the popup after clicking on a square
 function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 	const dest = document.getElementById("popup-element");
-
 	//Check if the element already exists
 	if (dest != null) {
 		dest.remove();
@@ -94,7 +102,7 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 
 	//Check if someone has already taken this pixel
 	if (isTaken) {
-		var text = "Sorry, " + pixel + " has already been claimed by: " + getUserId(takenSquaresJson, xAxis, yAxis);
+		var text = "Sorry, " + pixel + " has already been claimed by: " + getUserId(takenSquaresJson, xAxis, yAxis);;
 		//Change to taken users profile image
 		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)");
 	} else {
@@ -105,6 +113,9 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 		var but = document.createElement("button");
 		but.id = "popup-element-b";
 		but.insertAdjacentText("beforeend", "Claim");
+        but.onclick = function(){
+            buySquare();
+        };
 	}
 
     if (xAxis < 250){
@@ -128,8 +139,8 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 	textDiv.style.top = topOffset + "px";
 	textDiv.appendChild(para);
 	if(!isTaken) textDiv.appendChild(but);
-	document.getElementsByTagName('body')[0].appendChild(textDiv);
 
+	document.getElementsByTagName('body')[0].appendChild(textDiv);
 	//TODO:
 	//Add fade effect
 }
@@ -148,3 +159,5 @@ canvas.addEventListener('click', function (evt) {
 	//Need a way of removing highlighted square if another is clicked
 	fillSquare(context, mousePos.x, mousePos.y, "grey");
 }, false);
+
+console.log(takenSquaresJson);

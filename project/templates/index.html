@@ -33,10 +33,13 @@
 <script type="text/javascript" src="{{ url_for('static',filename='index.js') }}"> </script>
 <script type="text/javascript">
     jsonSquares = {{ data | tojson }};
-    console.log(jsonSquares);
+    var userName = '{{ current_user.name }}';
     squaresList = getSquareList(jsonSquares);
     squareListJson = getSquareListJson(jsonSquares);
     findTakenSquares();
+
+    console.log(jsonSquares);
+    console.log(userName);
 </script>
 
 
