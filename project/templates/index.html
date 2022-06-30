@@ -25,9 +25,17 @@
         </div>
     </div>
 
+    <form id="buyButton" method="POST" action="/">
+            <div class="field">
+                <div class="control">
+                    <input type = "hidden" id = "xAxis" name = "xPos">
+                    <input type = "hidden" id = "yAxis" name = "yPos">
+                </div>
+            </div>
+    </form>
 
     <div id="main">
-        <canvas id="myCanvas" width="1001px" height="1001px"></canvas>
+        <canvas id="myCanvas" width="1000px" height="1000px"></canvas>
     </div>
 
 <script type="text/javascript" src="{{ url_for('static',filename='index.js') }}"> </script>

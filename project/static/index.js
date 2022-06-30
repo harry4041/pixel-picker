@@ -1,6 +1,7 @@
 var cssRoot = document.querySelector(':root');
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
+var buyForm = document.getElementById("buyButton")
 var myVar;
 //Use JS to change CSS variables
 function changeCSSVal(name, change) {
@@ -38,7 +39,7 @@ function findTakenSquares() {
 		var x = element[0];
 		var y = element[1];
 		context.fillStyle = "grey";
-		context.fillRect(x, y, 1, 1);
+		context.fillRect(x, y, 40, 40); //make context.fillRect(x, y, 1, 1) after testing
 	}
 }
 
@@ -46,8 +47,8 @@ function findTakenSquares() {
 function getSquare(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
 	return {
-		x: (evt.clientX - rect.left) - (evt.clientX - rect.left) % 1,
-		y: (evt.clientY - rect.top) - (evt.clientY - rect.top) % 1
+		x: (evt.clientX - rect.left) - (evt.clientX - rect.left) % 40, // make 1 after testing
+		y: (evt.clientY - rect.top) - (evt.clientY - rect.top) % 40 // make 1 after testing
 	};
 }
 
@@ -62,11 +63,11 @@ function fillSquare(context, x, y, color) {
 	}
 
 	//Get data to refill this square if we click again
-	lastClickData = context.getImageData(x, y, 1, 1);
+	lastClickData = context.getImageData(x, y, 40, 40); // make 1 after testing
 
 	//Fill new square
 	context.fillStyle = color;
-	context.fillRect(x, y, 1, 1);
+	context.fillRect(x, y, 40, 40); // make 1 after testing
 
 	//Change to new values
 	lastClickedPosX = x;
@@ -85,6 +86,7 @@ function getUserId(data, xAxis, yAxis) {
 
 function buySquare(){
     console.log(userName);
+    findTakenSquares();
     //TODO:
     //Delete the div
     //Add square to person
@@ -102,11 +104,15 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 
 	//Check if someone has already taken this pixel
 	if (isTaken) {
-		var text = "Sorry, " + pixel + " has already been claimed by: " + getUserId(takenSquaresJson, xAxis, yAxis);;
+		//var text = "Sorry, " + pixel + " has already been claimed by: " + getUserId(takenSquaresJson, xAxis, yAxis);;
+		var text = "This has already been claimed by: " + getUserId(takenSquaresJson, xAxis, yAxis);;
+
+		//TODO:
 		//Change to taken users profile image
 		changeCSSVal("--popupImg", "linear-gradient(to right, blue, blue)");
 	} else {
-		var text = "Would you like to claim pixel " + pixel + "?";
+		//var text = "Would you like to claim pixel " + pixel + "?";
+		var text = "Would you like to claim this square?"
 		//Change to taken logged in users profile picture or something like a ? maybe
 		changeCSSVal("--popupImg", "linear-gradient(to right, white, white)");
 
@@ -138,8 +144,8 @@ function showTaken(e, isTaken, pixel, xAxis, yAxis) {
 	textDiv.style.left = leftOffset + "px";
 	textDiv.style.top = topOffset + "px";
 	textDiv.appendChild(para);
-	if(!isTaken) textDiv.appendChild(but);
-
+	textDiv.appendChild(buyForm)
+	if(!isTaken) buyForm.appendChild(but);
 	document.getElementsByTagName('body')[0].appendChild(textDiv);
 	//TODO:
 	//Add fade effect
@@ -158,6 +164,9 @@ canvas.addEventListener('click', function (evt) {
 
 	//Need a way of removing highlighted square if another is clicked
 	fillSquare(context, mousePos.x, mousePos.y, "grey");
+
+	document.getElementById("xAxis").value = mousePos.x;
+	document.getElementById("yAxis").value = mousePos.y;
 }, false);
 
-console.log(takenSquaresJson);
+console.log(takenSquares);
