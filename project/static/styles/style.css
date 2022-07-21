@@ -1,0 +1,86 @@
+:root {
+  --popupImg: linear-gradient(to right, white, white);
+}
+
+body{
+    font-size: 14px;
+    font-family: 'Advent Pro';
+}
+
+#main{
+    background-image: url("img/space.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(to right, red, black);
+    width: 1000px;
+    margin: auto;
+    vertical-align: baseline;
+}
+
+.title-container{
+    display: flex; /* or inline-flex */
+    text-align: center;
+}
+
+
+h1{
+  font-size:74px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+#popup-element {
+ position: relative;
+  height: 50px;
+  width: 400px;
+  border-radius: 6px;  
+  background: black;
+  text-align: right;
+  vertical-align: middle;
+  }
+
+#popup-element:before{
+  position: absolute;
+  content: "";
+  width: 84px;
+  height: 83px;
+  top: -16px;
+  left: -25px;
+  background-image: linear-gradient(to right, rgb(125, 69, 209), black);
+  border-radius: 50%;
+}
+
+#popup-element:after{
+  position: absolute;
+  content: "";
+  width: 75px;
+  height: 75px;
+  top: -12px;
+  left: -21px;
+  background-image: var(--popupImg);
+  border-radius: 50%;
+}
+
+#popup-element-p{
+  text-align: center;
+  color: white;
+  margin: 0;
+  line-height: 35px;
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+#popup-element-b{
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 48px;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+

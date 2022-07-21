@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Advent Pro' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="title-container">
+        <div style="background-color:white; flex-grow: 1;">
+            {% if current_user.is_authenticated %}
+            <h6>{{current_user.name}} is logged in</h6>
+            {% endif %}
+        </div>
+        <div style="background-color:lavender; flex-grow: 2;">
+            <h1 id="title">Pixel perfect</h1>
+        </div>
+        <div style="background-color:white; flex-grow: 1;">
+            <p>Login</p>
+        </div>
+    </div>
+
+    <form id="buyButton" method="POST" action="/">
+            <div class="field">
+                <div class="control">
+                    <input type = "hidden" id = "xAxis" name = "xPos">
+                    <input type = "hidden" id = "yAxis" name = "yPos">
+                </div>
+            </div>
+    </form>
+
+    <div id="main">
+        <canvas id="myCanvas" width="1000px" height="1000px"></canvas>
+    </div>
+
+<script type="text/javascript" src="{{ url_for('static',filename='index.js') }}"> </script>
+<script type="text/javascript">
+    jsonSquares = {{ data | tojson }};
+    var userName = '{{ current_user.name }}';
+    squaresList = getSquareList(jsonSquares);
+    squareListJson = getSquareListJson(jsonSquares);
+    findTakenSquares();
+
+    console.log(jsonSquares);
+    console.log(userName);
+</script>
+
+
+
+</html>
